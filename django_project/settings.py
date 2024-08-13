@@ -25,8 +25,7 @@ SECRET_KEY = 'exhlfdat&vfum(-34*c2uroi(($ww(yo$9pv98=e6p^gl(-eoj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['django-1.onrender.com']
-
+ALLOWED_HOSTS = ['django-1-lzn9.onrender.com']
 
 
 # Application definition
