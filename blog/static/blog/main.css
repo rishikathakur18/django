@@ -1,19 +1,8 @@
 body {
-  background: #fafafa !important;
+  background: #fafafa;
   color: #333333;
-  margin-top: 5rem; /* Keep the margin for the fixed-top navigation */
-  padding-top: 2rem; /* Add some padding to the top of the body */
+  margin-top: 5rem;
 }
-
-
-/* Add styles for the navbar */
-.navbar {
-  background: #5f788a;
-  padding: 10px; /* Adjust the padding as needed */
-  z-index: 100;
-  width: 100%; /* Ensure the navbar spans the full width */
-}
-
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
@@ -21,6 +10,10 @@ h1, h2, h3, h4, h5, h6 {
 
 ul {
   margin: 0;
+}
+
+.bg-steel {
+  background-color: #5f788a;
 }
 
 .site-header .navbar-nav .nav-link {

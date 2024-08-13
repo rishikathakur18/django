@@ -2,4 +2,8 @@ from django.apps import AppConfig
 
 
 class BlogConfig(AppConfig):
-    name = 'blog'
+    name = 'blog'# from django.apps import AppConfig
+
+
+# class BlogConfig(AppConfig):
+#     name = 'blog'
