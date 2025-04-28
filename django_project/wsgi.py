@@ -1,3 +1,4 @@
+
 """
 WSGI config for django_project project.
 

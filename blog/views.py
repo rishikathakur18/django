@@ -1,9 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+
+#newly added
+import requests
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
 from django.views.generic import (
     ListView,
-    DetailView,
+    DetailView, 
     CreateView,
     UpdateView,
     DeleteView
@@ -159,3 +166,20 @@ def about(request):
 
 # def about(request):
 #     return render(request, 'blog/about.html', {'title': 'About'})
+
+ #newly added
+@csrf_exempt
+def grammar_check(request):
+    if request.method == 'POST':
+        text = request.POST.get('text', '')
+        if text:
+            res = requests.post(
+                'https://api.languagetool.org/v2/check',
+                data={
+                    'text': text,
+                    'language': 'en-US'
+                }
+            )
+            return JsonResponse(res.json())
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+

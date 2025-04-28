@@ -9,10 +9,56 @@
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Post</button>
+                <button class="btn btn-outline-info" type="submit">Post</button> 
+                {% comment %} tone Adjustment {% endcomment %}
+                
             </div>
         </form>
+       
+        <div id="suggestions" class="mt-4"></div>
     </div>
+
+    {% comment %} newly added {% endcomment %}
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textarea = document.querySelector("textarea");
+            const checkBtn = document.createElement("button");
+            checkBtn.innerText = "Check Grammar";
+            checkBtn.classList.add("btn", "btn-outline-secondary", "ml-2");
+            textarea.parentNode.appendChild(checkBtn);
+    
+            function getCSRFToken() {
+                return document.querySelector('[name=csrfmiddlewaretoken]').value;
+            }
+    
+            checkBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                const text = textarea.value;
+    
+                fetch("{% url 'grammar-check' %}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken(),
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `text=${encodeURIComponent(text)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.matches) {
+                        let suggestions = data.matches.map(match => {
+                            return `Suggestion: ${match.replacements.map(r => r.value).join(", ")}\nError: "${match.context.text}"`;
+                        }).join("\n\n");
+                        alert(suggestions || "No major issues found!");
+                    } else {
+                        alert("No grammar issues found!");
+                    }
+                });
+            });
+        });
+    </script>
+    
 {% endblock content %}
 {% comment %} {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
